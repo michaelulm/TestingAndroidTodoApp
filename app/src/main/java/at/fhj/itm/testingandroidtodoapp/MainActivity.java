@@ -9,14 +9,11 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import org.apache.commons.io.FileUtils;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * MainActivity of ToDo List Testing Sample
+ * Author Michael Ulm
  */
 public class MainActivity extends Activity {
 
@@ -29,21 +26,17 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        lvItems = (ListView) findViewById(R.id.lvItems);
-        items = new ArrayList<>();
-        itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
-        lvItems.setAdapter(itemsAdapter);
-        // add some Items to ToDo list
-        // items.add(new Item("IMS Testing Todo"));
-        // ..
+        // set application context to singleton
+        FileStorage.getInstance().setContext(getApplicationContext());
+
+        // now create ListView
+        setupListView();
 
         // now add items from file
         readItems();
 
-
         // Setup remove listener method call
         setupListViewListener();
-
     }
 
     /**
@@ -56,6 +49,19 @@ public class MainActivity extends Activity {
         itemsAdapter.add(new Item(itemText));
         etNewItem.setText("");
         writeItems();
+    }
+
+    /**
+     * defines ListView and setup ArrayAdapter
+     */
+    private void setupListView(){
+        lvItems = (ListView) findViewById(R.id.lvItems);
+        items = new ArrayList<>();
+        itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
+        lvItems.setAdapter(itemsAdapter);
+        // add some Items to ToDo list
+        // items.add(new Item("IMS Testing Todo"));
+        // ..
     }
 
     /**
@@ -89,32 +95,25 @@ public class MainActivity extends Activity {
                 });
     }
 
+    /**
+     * read current Items from FileStorage
+     */
     private void readItems() {
-        File filesDir = getFilesDir();
-        File todoFile = new File(filesDir, "todo.txt");
-        items = new ArrayList<Item>();
-
-        try {
-            ArrayList<String> tmpItems = new ArrayList<String>(FileUtils.readLines(todoFile));
-            for (String item : tmpItems) {
-                itemsAdapter.add(new Item(item));
-            }
-        } catch (IOException e) {
+        ArrayList<String> tmpItems = FileStorage.getInstance().readItems();
+        for (String item : tmpItems) {
+            itemsAdapter.add(new Item(item));
         }
     }
 
+    /**
+     * write current Items back to the FileStorage
+     */
     private void writeItems() {
-        File filesDir = getFilesDir();
-        File todoFile = new File(filesDir, "todo.txt");
-        try {
-            ArrayList<String> tmpItems = new ArrayList<>();
-            for(int i = 0; i < itemsAdapter.getCount(); i++){
-                tmpItems.add(itemsAdapter.getItem(i).toString());
-            }
-            FileUtils.writeLines(todoFile, tmpItems);
-        } catch (IOException e) {
-            e.printStackTrace();
+        ArrayList<String> tmpItems = new ArrayList<>();
+        for(int i = 0; i < itemsAdapter.getCount(); i++){
+            tmpItems.add(itemsAdapter.getItem(i).toString());
         }
+        FileStorage.getInstance().writeItems(tmpItems);
     }
 
     @Override

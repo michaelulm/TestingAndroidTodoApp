@@ -2,6 +2,8 @@ package at.fhj.itm.testingandroidtodoapp;
 
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,20 +52,27 @@ public class AddItemTest {
                 .atPosition(3)
                 .check(matches(withText(containsString(STRING_TO_BE_TYPED))));
 
+        // activate line to see test will fail
+        //onData(anything()).inAdapterView(withId(R.id.lvItems)).atPosition(3).check(matches(withText(containsString(STRING_NOT_EXISTS))));
+        //onData(anything()).inAdapterView(withId(R.id.lvItems)).atPosition(3).check(matches(withText(containsString(STRING_NOT_EXISTS))));
+
         // triggers click on item
         onData(anything())
                 .inAdapterView(withId(R.id.lvItems))
                 .atPosition(3)
                 .perform(click());
 
-        // only finds current text ..
-        onView(withId(R.id.etNewItem))
-                .check(matches(withText(containsString(STRING_TO_BE_TYPED))));
+        /* modified source, so currently nothing appears at click on list item
 
-        // .. and verify that entry is displayed on the screen
-        onView(withId(R.id.etNewItem))
-                .check(matches(withText(containsString(STRING_TO_BE_TYPED))))
-                .check(matches(isDisplayed()));
+            // only finds current text ..
+            onView(withId(R.id.etNewItem))
+                    .check(matches(withText(containsString(STRING_TO_BE_TYPED))));
+
+            // .. and verify that entry is displayed on the screen
+            onView(withId(R.id.etNewItem))
+                    .check(matches(withText(containsString(STRING_TO_BE_TYPED))))
+                    .check(matches(isDisplayed()));
+        */
 
         // onView(withId(R.id.lvItems)).check(matches(withText(STRING_TO_BE_TYPED))); => will not work, because it's a list
         // take care that espresso returns a String Information about the complete Object at matching texts!
