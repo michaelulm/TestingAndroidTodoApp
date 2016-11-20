@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 /**
  * MainActivity of ToDo List Testing Sample
- * Author Michael Ulm
+ * @author Michael Ulm
  */
 public class MainActivity extends Activity {
 

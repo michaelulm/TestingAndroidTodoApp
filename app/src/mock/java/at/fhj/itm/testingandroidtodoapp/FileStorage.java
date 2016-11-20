@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /**
  * mock object of FileStorage, for easier testing with espresso we are using product flavors with gradle build
+ * @author Michael Ulm
  */
 public class FileStorage {
 

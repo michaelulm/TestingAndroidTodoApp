@@ -1,19 +1,19 @@
 package at.fhj.itm.testingandroidtodoapp;
 
-import android.app.Activity;
-import android.app.Instrumentation;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import org.junit.Rule;
 import org.junit.Test;
 
-import static at.fhj.itm.testingandroidtodoapp.R.menu.main;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
+/**
+ * tests current ListView and initial state,
+ * this test is created for usage with mock flavor
+ * @author Michael Ulm
+ */
 public class ItemListInstrumentedTest {
 
   @Rule
