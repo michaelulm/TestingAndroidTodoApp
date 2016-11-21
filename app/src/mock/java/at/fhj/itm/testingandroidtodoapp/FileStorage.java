@@ -1,5 +1,7 @@
 package at.fhj.itm.testingandroidtodoapp;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 
 /**
@@ -42,5 +44,19 @@ public class FileStorage {
      */
     public void writeItems(ArrayList<String> items) {
         // we do not write to the file system, it's just a mock method
+    }
+
+    /**
+     * only a mock method without function, because not needed at the moment
+     * @param c
+     */
+    public void setContext(Context c){
+    }
+
+    /**
+     * only a mock method without function, because not needed at the moment
+     * @param listName
+     */
+    public void setListName(String listName){
     }
 }
