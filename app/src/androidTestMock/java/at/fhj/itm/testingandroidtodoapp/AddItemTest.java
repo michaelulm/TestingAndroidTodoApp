@@ -13,6 +13,7 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.anything;
@@ -79,6 +80,23 @@ public class AddItemTest {
 
         // onView(withId(R.id.lvItems)).check(matches(withText(STRING_TO_BE_TYPED))); => will not work, because it's a list
         // take care that espresso returns a String Information about the complete Object at matching texts!
+    }
+
+
+    /**
+     * adds Item to the ListView, clicks and verify the correct value by find view
+     */
+    @Test
+    public void addItemAndFindText() {
+        // Types the pre-defined text
+        onView(withId(R.id.etNewItem))
+                .perform(typeText(STRING_TO_BE_TYPED), closeSoftKeyboard());
+        // after typing we perform button click for adding text
+        onView(withId(R.id.btnAddItem)).perform(click());
+
+        // check by find on view
+        onView(withText(containsString(STRING_TO_BE_TYPED)))
+                .check(matches(isDisplayed()));
     }
 
 }
