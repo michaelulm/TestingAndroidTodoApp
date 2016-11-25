@@ -19,6 +19,7 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static at.fhj.itm.testingandroidtodoapp.R.menu.main;
+import static org.hamcrest.CoreMatchers.any;
 import static org.hamcrest.CoreMatchers.anything;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
@@ -33,6 +34,7 @@ import static org.junit.Assert.assertThat;
 public class RemoveItemTest {
 
     public static final String STRING_TO_BE_TYPED = "Nice!";
+    public static final String STRING_TO_FIND = "Awesome!";
 
     /**
      * {@link ActivityTestRule} will create and launch of the activity for you and also expose
@@ -72,6 +74,39 @@ public class RemoveItemTest {
                 .atPosition(3)
                 .perform(longClick());
 
+
+        // after removing list should contain only 3 items again
+        assertThat(listview.getCount(), is(3));
+
+    }
+
+    /**
+     * removes Item from the ListView (by find them by String Value) and verify correct number of items in list through after and before assert of current list
+     */
+    @Test
+    public void findAndRemoveItem() {
+
+        ListView listview = (ListView) mActivityRule.getActivity().findViewById(R.id.lvItems);
+
+        // first check size of current list
+        assertThat(listview.getCount(), is(3));
+
+        // add new Item to existing list
+        onView(withId(R.id.etNewItem))
+                .perform(typeText(STRING_TO_FIND), closeSoftKeyboard());
+        onView(withId(R.id.btnAddItem)).perform(click());
+
+        onData(anything())
+                .inAdapterView(withId(R.id.lvItems))
+                .atPosition(3)
+                .check(matches(withText(containsString(STRING_TO_FIND))));
+
+        // after add new item check size of current list again
+        assertThat(listview.getCount(), is(4));
+
+        // remove item with long touch
+        onView(withText(containsString(STRING_TO_FIND)))
+                .perform(longClick());
 
         // after removing list should contain only 3 items again
         assertThat(listview.getCount(), is(3));
