@@ -88,6 +88,7 @@ public class MainActivity extends Activity {
                         itemsAdapter.remove(tmpItem);
                         // Refresh the adapter
                         itemsAdapter.notifyDataSetChanged();
+                        writeItems();
                         // Return true consumes the long click event (marks it handled)
                         return true;
                     }

@@ -21,8 +21,12 @@ android {
     productFlavors {
         mock {
             applicationIdSuffix = ".mock"
+            resValue "string", "app_name", "ToDoApp IMS DEBUG"
         }
-        prod
+        prod{
+            applicationIdSuffix = ".final"
+            resValue "string", "app_name", "ToDoApp IMS"
+        }
     }
 }
 
