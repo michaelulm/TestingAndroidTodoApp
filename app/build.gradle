@@ -27,6 +27,7 @@ android {
             applicationIdSuffix = ".final"
             resValue "string", "app_name", "ToDoApp IMS"
         }
+        ims
     }
 }
 

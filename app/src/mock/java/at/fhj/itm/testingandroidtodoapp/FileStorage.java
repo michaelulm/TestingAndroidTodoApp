@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class FileStorage {
 
     private static FileStorage instance;
+    private ArrayList<String> tmpItems = new ArrayList<>();
 
     private FileStorage () {
 
@@ -24,26 +25,22 @@ public class FileStorage {
     }
 
     /**
-     * just send some mock objects back for testing
+     * returns temporary stored items from memory
      * @return
      */
     public ArrayList<String> readItems() {
-
-        ArrayList<String> tmpItems = new ArrayList<>();
-
-        tmpItems.add("Prepare Awesome Lesson");
-        tmpItems.add("Activate Online Visibility of Moodle");
-        tmpItems.add("Talk to students");
-
         return tmpItems;
     }
 
     /**
-     * only a mock method without function, because not needed at the moment
+     * temporary store items in memory
      * @param items
      */
     public void writeItems(ArrayList<String> items) {
-        // we do not write to the file system, it's just a mock method
+        tmpItems = new ArrayList<>();
+        for(String item : items){
+            tmpItems.add(item);
+        }
     }
 
     /**

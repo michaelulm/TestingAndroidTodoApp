@@ -3,7 +3,6 @@ package at.fhj.itm.testingandroidtodoapp;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -29,7 +28,7 @@ import static org.hamcrest.CoreMatchers.containsString;
  * @author Michael Ulm
  */
 @RunWith(AndroidJUnit4.class)
-public class AddItemTest {
+public class AddItemByFindTextTest {
 
     public static final String STRING_TO_BE_TYPED = "Nice!";
     public static final String STRING_NOT_EXISTS = "This String should NOT exists!";
@@ -56,46 +55,19 @@ public class AddItemTest {
     }
 
     /**
-     * adds Item to the ListView, clicks and verify the correct value
+     * adds Item to the ListView, clicks and verify the correct value by find view
      */
     @Test
-    public void addItem() {
+    public void addItemAndFindText() {
         // Types the pre-defined text
         onView(withId(R.id.etNewItem))
                 .perform(typeText(STRING_TO_BE_TYPED), closeSoftKeyboard());
         // after typing we perform button click for adding text
         onView(withId(R.id.btnAddItem)).perform(click());
 
-        // check 4. entry, because 3 Demo Entries already exists
-        onData(anything())
-                .inAdapterView(withId(R.id.lvItems))
-                .atPosition(3)
-                .check(matches(withText(containsString(STRING_TO_BE_TYPED))));
-
-        // activate line to see test will fail
-        //onData(anything()).inAdapterView(withId(R.id.lvItems)).atPosition(3).check(matches(withText(containsString(STRING_NOT_EXISTS))));
-        //onData(anything()).inAdapterView(withId(R.id.lvItems)).atPosition(3).check(matches(withText(containsString(STRING_NOT_EXISTS))));
-
-        // triggers click on item
-        onData(anything())
-                .inAdapterView(withId(R.id.lvItems))
-                .atPosition(3)
-                .perform(click());
-
-        /* modified source, so currently nothing appears at click on list item
-
-            // only finds current text ..
-            onView(withId(R.id.etNewItem))
-                    .check(matches(withText(containsString(STRING_TO_BE_TYPED))));
-
-            // .. and verify that entry is displayed on the screen
-            onView(withId(R.id.etNewItem))
-                    .check(matches(withText(containsString(STRING_TO_BE_TYPED))))
-                    .check(matches(isDisplayed()));
-        */
-
-        // onView(withId(R.id.lvItems)).check(matches(withText(STRING_TO_BE_TYPED))); => will not work, because it's a list
-        // take care that espresso returns a String Information about the complete Object at matching texts!
+        // check by find on view
+        onView(withText(containsString(STRING_TO_BE_TYPED)))
+                .check(matches(isDisplayed()));
     }
 
 }

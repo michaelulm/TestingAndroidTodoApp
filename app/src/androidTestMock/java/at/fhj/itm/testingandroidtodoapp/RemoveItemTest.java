@@ -4,10 +4,14 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.ListView;
 
+import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.ArrayList;
 
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
@@ -43,6 +47,18 @@ public class RemoveItemTest {
      */
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
+
+    /**
+     * prepare FileStorage with some items, beforeClass needed because otherwise ActivityTestRule will be initialized before
+     */
+    @BeforeClass
+    public static void setupBeforeRun(){
+        ArrayList<String> tmpItems = new ArrayList<>();
+        tmpItems.add("Awesome Lesson");
+        tmpItems.add("Setup Test Method");
+        tmpItems.add("Make a joke!");
+        FileStorage.getInstance().writeItems(tmpItems);
+    }
 
     /**
      * removes Item from the ListView and verify correct number of items in list through after and before assert of current list
@@ -150,6 +166,18 @@ public class RemoveItemTest {
 
         // after removing item, list should be empty
         assertThat(listview.getCount(), is(0));
+    }
+
+    /**
+     * currently needed to write Items AFTER Test => Needed because of my implementation TODO do another Refactoring
+     */
+    @After
+    public void teardown(){
+         ArrayList<String> tmpItems = new ArrayList<>();
+            tmpItems.add("Awesome Lesson");
+            tmpItems.add("Setup Test Method");
+            tmpItems.add("Make a joke!");
+            FileStorage.getInstance().writeItems(tmpItems);
     }
 
 }
