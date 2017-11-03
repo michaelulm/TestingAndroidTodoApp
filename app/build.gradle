@@ -45,10 +45,20 @@ android {
 // better performance at app building
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+
+    // App's dependencies, including test
+    compile 'com.android.support:support-annotations:22.2.0'
+
+    // Testing-only dependencies
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    api 'com.android.support:appcompat-v7:25.4.0'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
     //api 'org.apache.commons:commons-io:1.3.2' // currently a problem at prod Flavor
+
+    // Unit Tests dependency
     testImplementation 'junit:junit:4.12'
+
+    // needed support library
+    api 'com.android.support:appcompat-v7:25.4.0'
 }
