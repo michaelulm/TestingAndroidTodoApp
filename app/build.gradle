@@ -52,8 +52,8 @@ dependencies {
     // Testing-only dependencies
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    //api 'org.apache.commons:commons-io:1.3.2' // currently a problem at prod Flavor
-
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    
     // Unit Tests dependency
     testImplementation 'junit:junit:4.12'
 
