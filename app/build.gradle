@@ -36,6 +36,7 @@ android {
         }
         ims{
             dimension "fhjDemo"
+            // resValue "string", "app_name", "TDA IMS" // each product flavor can be different, so please uncomment if you will have an error ;)
         }
     }
 }
@@ -53,7 +54,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     compile group: 'commons-io', name: 'commons-io', version: '2.6'
-    
+
     // Unit Tests dependency
     testImplementation 'junit:junit:4.12'
 

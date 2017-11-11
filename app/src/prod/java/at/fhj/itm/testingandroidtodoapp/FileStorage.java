@@ -14,6 +14,8 @@ import java.util.ArrayList;
  */
 public class FileStorage {
 
+    // TODO Improve FileStorage with DB or https://developer.android.com/training/data-storage/files.html
+
     private Context context;
     private static FileStorage instance;
     private String listName = "todo.txt";

@@ -61,13 +61,29 @@ public class AddItemByFindTextTest {
     public void addItemAndFindText() {
         // Types the pre-defined text
         onView(withId(R.id.etNewItem))
+                // VIEW MATCHER => method to locate a view within the current view hierarchy
+                //
+                // matcher will (hopefully) find a matching view, e.g. find a view "withId"
+
                 .perform(typeText(STRING_TO_BE_TYPED), closeSoftKeyboard());
+                // VIEW ACTIONS => methods which can be passed by perform(...), e.g. "click" or "typeText"
+                //
+                // actions normally "do something"
+
+
         // after typing we perform button click for adding text
         onView(withId(R.id.btnAddItem)).perform(click());
 
         // check by find on view
         onView(withText(containsString(STRING_TO_BE_TYPED)))
+
+
                 .check(matches(isDisplayed()));
+                // VIEW ASSERTIONS => Most of the time, you will use the "matches" assertion,
+                //                    which uses a View matcher to assert the state of the currently selected view.
+                //
+                // assertions will check the state with another reference
+                // => if this matches it's a positive result (expected), in other case a negative result (not expected)
     }
 
 }
